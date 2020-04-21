@@ -10,7 +10,7 @@ func main() {
 	fmt.Println("Input deposit percent")
 	fmt.Scan(&percent)
 	for i := 1; i < 6; i++ {
-		deposit = deposit + ((deposit * percent) / 100)
+		deposit += deposit * percent / 100
 		fmt.Println("after year", i, "deposit gonna be ", fmt.Sprintf("%.2f", deposit))
 	}
 
