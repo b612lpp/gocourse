@@ -1,0 +1,10 @@
+{
+ "CarMark": "Toyota",
+ "YearMade": 1992,
+ "TrunkSize": 160,
+ "EngineStart": false,
+ "WindowsOpen": {
+  "LeftWindowOpen": true,
+  "RightWindowOpen": true
+ }
+}
