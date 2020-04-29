@@ -1,7 +1,7 @@
 {
  "CarMark": "Toyota",
  "YearMade": 1992,
- "TrunkSize": 160,
+ "TrunkSize": 60,
  "EngineStart": false,
  "WindowsOpen": {
   "LeftWindowOpen": true,

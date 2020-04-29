@@ -6,6 +6,11 @@ import (
 	"io/ioutil"
 )
 
+const (
+	//StatusFile contains file location
+	StatusFile = "status.json"
+)
+
 //OpenedWindows contains windows status
 type OpenedWindows struct{ LeftWindowOpen, RightWindowOpen bool }
 
@@ -19,37 +24,41 @@ type PassangerCar struct {
 }
 
 func main() {
-	drawHello()
+	var CurrentCar PassangerCar
+	CurrentCar = readFromJSON()
+	fmt.Println(CurrentCar)
+	drawHello(CurrentCar)
 
 }
 
-func drawHello() {
+func drawHello(c PassangerCar) {
 	var calledFunc string
-	CurrentCar := readFromJSON()
+	//CurrentCar := readFromJSON()
 	fmt.Println("---------------------------")
-	fmt.Println("Today we have following car: ", CurrentCar.CarMark)
+	fmt.Println("Today we have following car: ", c.CarMark)
 	fmt.Println("It is possible to:\n 1. Put something in it's Trunk\n 2. Change it's Mark \n 3. Check windows status\n 4. Close the catalog")
 	fmt.Scan(&calledFunc)
 
 	switch calledFunc {
 	case "1":
-		changeTrunkCont()
+		PassangerCar.changeTrunkCont(c)
 	case "2":
-		changeMark()
+		PassangerCar.ChangeMark(c)
 	case "3":
-		funWithWindows()
+		PassangerCar.funWithWindows(c)
 	case "4":
 		break
 	default:
 		fmt.Println("Undifined action")
-		drawHello()
+		drawHello(c)
 	}
 }
 
-func funWithWindows() {
-	left := readFromJSON().WindowsOpen.LeftWindowOpen
-	right := readFromJSON().WindowsOpen.RightWindowOpen
-	//CurrentCar := readFromJSON()
+func (c PassangerCar) funWithWindows() {
+
+	left := c.WindowsOpen.LeftWindowOpen
+	right := c.WindowsOpen.RightWindowOpen
+
 	if left == true {
 		fmt.Println("Left window is open.")
 	} else {
@@ -60,37 +69,38 @@ func funWithWindows() {
 	} else {
 		fmt.Println("Right window is closed")
 	}
-	drawHello()
+	drawHello(c)
 
 }
-func changeMark() {
+
+//ChangeMark changes mark title
+func (c PassangerCar) ChangeMark() {
 	var MarkChangeTo string
-	CurrentCar := readFromJSON()
-	fmt.Println("Current Mark title is is: ", readFromJSON().CarMark)
+	fmt.Println("Current Mark's title: ", c.CarMark)
 	fmt.Println("Which title you want to swap to?")
 	fmt.Scanln(&MarkChangeTo)
-	CurrentCar.CarMark = MarkChangeTo
-	saveToJSON(CurrentCar)
-	fmt.Println("Your awesome name is assigned to current Car", readFromJSON().CarMark)
-	drawHello()
+	c.CarMark = MarkChangeTo
+	saveToJSON(c)
+	fmt.Println("Your awesome name is assigned to current Car", c.CarMark)
+	drawHello(c)
 
 }
 
-func changeTrunkCont() {
+func (c PassangerCar) changeTrunkCont() {
 	var litersToUpload float32
-	CurrentCar := readFromJSON()
-	fmt.Println("Current free space of Trunk is: ", readFromJSON().TrunkSize)
+
+	fmt.Println("Current free space of Trunk is: ", c.TrunkSize)
 	fmt.Println("How many liters you want to upload?")
 	fmt.Scanln(&litersToUpload)
-	CurrentCar.TrunkSize -= litersToUpload
-	saveToJSON(CurrentCar)
-	fmt.Println("Your things are uploaded successfully! Now current free space of Trunk is", readFromJSON().TrunkSize)
-	drawHello()
+	c.TrunkSize -= litersToUpload
+	saveToJSON(c)
+	fmt.Println("Your things are uploaded successfully! Now current free space of Trunk is", c.TrunkSize)
+	drawHello(c)
 }
 
 func readFromJSON() PassangerCar {
 
-	file, _ := ioutil.ReadFile("status.json")
+	file, _ := ioutil.ReadFile(StatusFile)
 
 	data := PassangerCar{}
 
@@ -103,5 +113,5 @@ func saveToJSON(s PassangerCar) {
 
 	file, _ := json.MarshalIndent(s, "", " ")
 
-	_ = ioutil.WriteFile("status.json", file, 0644)
+	_ = ioutil.WriteFile(StatusFile, file, 0644)
 }
