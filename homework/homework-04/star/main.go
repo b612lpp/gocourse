@@ -14,41 +14,51 @@ type horsePosition struct {
 	VerticalWay int
 }
 
-//CorrectPosition checks if start position is correct
-var CorrectPosition bool
-
-//ListPositions contains list of available positions to move
-var ListPositions []horsePosition
-
-func (p horsePosition) checkPosition() bool {
-
-	if p.HorixontWay < 8 && p.VerticalWay < 8 {
-		CorrectPosition = true
-		//fmt.Println(x)
-	}
-
-	return CorrectPosition
-}
-
 func (p horsePosition) nextPosition() []horsePosition {
-	var MoveX = []int{2, 2, -2, -2, 1, 1, -1, -1}
-	var MoveY = []int{1, -1, 1, -1, -2, 2, 2, -2}
+	var c horsePosition
+	var listPositions []horsePosition
+	var positionDelta = []horsePosition{{2, 1}, {2, -1}, {-2, 1}, {-2, -1}, {1, -2}, {1, 2}, {-1, 2}, {-1, -2}}
+
 	for i := 0; i < 8; i++ {
-		a := p.HorixontWay + MoveX[i]
-		b := p.VerticalWay + MoveY[i]
-		if a >= 0 && a < 8 && b >= 0 && b < 8 {
-			var c = horsePosition{a, b}
-			ListPositions = append(ListPositions, c)
+		c.HorixontWay = p.HorixontWay + positionDelta[i].HorixontWay
+		c.VerticalWay = p.VerticalWay + positionDelta[i].VerticalWay
+		if c.checkCorrect() == true {
+			listPositions = append(listPositions, c)
 		}
 
 	}
-	return ListPositions
+	return listPositions
+}
+
+func (p horsePosition) checkCorrect() bool {
+	var r bool
+	if p.HorixontWay < 8 && p.VerticalWay < 8 && p.HorixontWay >= 0 && p.VerticalWay >= 0 {
+		r = true
+	}
+	return r
 }
 
 func main() {
-	var z = horsePosition{3, 7}
-	if z.checkPosition() == true {
-		z.nextPosition()
+
+	fmt.Println(inputData().nextPosition())
+}
+
+//function gets input values and generate position necessary type
+func inputData() horsePosition {
+	var x, y int
+	var c horsePosition
+	fmt.Println("input x")
+	fmt.Scanln(&x)
+	fmt.Println("input y")
+	fmt.Scanln(&y)
+	if x < 8 && y < 8 {
+		c = horsePosition{x, y}
+
+	} else {
+		fmt.Println("wrong data")
+		inputData()
+
 	}
-	fmt.Println(ListPositions)
+	return c
+
 }

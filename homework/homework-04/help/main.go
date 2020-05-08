@@ -1,27 +1,38 @@
 package main
 
 import (
-	"errors"
 	"fmt"
+	"gocourse/homework/homework-04/help/calculator"
+	"io/ioutil"
 )
 
 func main() {
-	var firstArg, secondArg float64
-	var operator string
+	input := ""
+	for {
+		fmt.Print("> ")
+		if _, err := fmt.Scanln(&input); err != nil {
+			fmt.Println(err)
+			continue
+		}
 
-	fmt.Println("Введите первый аргумент:")
-	fmt.Scanln(&firstArg)
+		if input == "exit" {
+			break
+		}
 
-	fmt.Println("Введите оператор")
-	fmt.Scanln(&operator)
+		if input == "help" {
 
-	fmt.Println("Введите второй аргумент:")
-	fmt.Scanln(&secondArg)
+			data, err := ioutil.ReadFile("help.txt")
+			if err != nil {
+				fmt.Println("File reading error", err)
+				return
+			}
+			fmt.Println("Here is About calculator", string(data))
+		}
 
-	result, err := calculate(firstArg, operator, secondArg)
-	if err != nil && errors.As(err, ErrorCalc{}) {
-		fmt.Printf("Произошла ошибка: %s", err.Error())
-		return
+		if res, err := calculator.Calculate(input); err == nil {
+			fmt.Printf("Результат: %v\n", res)
+		} else {
+			fmt.Println("Не удалось произвести вычисление")
+		}
 	}
-	fmt.Println("Результат:", result)
 }
