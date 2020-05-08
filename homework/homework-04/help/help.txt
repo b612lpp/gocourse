@@ -1,0 +1,47 @@
+Hello dear user!
+ We glad to introduce to you or wonderful calculator.
+=================================
++ 1. Thanks			+
++ 2. Command line description	+
++ 3. Operators			+
++ 4. Advance functions		+	
++ 5. Feedback			+
+=================================
+
+1. Thanks
+Fist of all we thank you for choosing our wonderful calculator. And we would be reaaly appretiated if you send us  feedback about your user expirience. Part feedback you may find at the end of instruction.
+
+2. Command line description
+Calculator's operation zone is command line. Coomand line marced by symbol ">". It appears when programm succesfully started. Command line is waiting for operands and operator in order you wan to calculate it. For example: >2+2 To get result of expression press "Enter" then you will see Результат: 4
+
+3. Operators
+Calcilator supports following operators: 
+	+
+	-
+	/
+	*
+	%
+
+4. Advance functions
+The calculator would not be wonderful if it was not able perform dom advanced functions.
+And here we go with math: 
+	sqrt	//Decription you may find in math book
+	abs 	//Decription you may find in math book
+	log	//Decription you may find in math book
+	ln	//Decription you may find in math book
+	sin	//Decription you may find in math book
+	cos	//Decription you may find in math book
+	tan	//Decription you may find in math book
+	max	//Decription you may find in math book
+	min	//Decription you may find in math book
+
+Ofcourse our calculater works with math constants like pi and so on. 
+Now we have:
+	Pi
+	E
+	Phi
+
+5. Hope you had good expirience. Just in case you faced an error or bug pleas do not hesitate inform us by email info@blabla.com
+
+
+
