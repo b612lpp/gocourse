@@ -9,6 +9,7 @@ import (
 func main() {
 	input := ""
 	for {
+
 		fmt.Print("> ")
 		if _, err := fmt.Scanln(&input); err != nil {
 			fmt.Println(err)
